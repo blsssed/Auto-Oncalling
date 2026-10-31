@@ -1,0 +1,40 @@
+.idea/
+.DS_Store
+.env
+.env.*
+config/project.json
+config/user.project.json
+recordings-private/
+*.db
+*.db-shm
+*.db-wal
+*.log
+.venv/
+apps/backend/var/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.pyright/
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+
+# 浏览器调试控制台日志
+.playwright-mcp/
+
+# 开发会话临时产物：本地截图与抓包记录（无文档引用）
+/chain-*.png
+/monitor-*.png
+/profile-model-*.png
+/redesign-*.png
+/chat-stream-*.txt
+
+# 个人笔记（不上传）
+/interview-stories.md
+/openspec从0到1项目实战的提示词.md
+/plan.md
+/agent-backend-architecture.md
+.cursor/

@@ -1,0 +1,192 @@
+/* Tailwind v4 无破坏接入：只引入 theme 与 utilities 层，刻意不含 preflight，
+   避免全局样式重置影响现有手写 CSS 页面。 */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@source "../src";
+
+/* 浅色是默认主题（langfuse 风：白底 + 紫罗兰点缀）；深色由
+   <html data-theme="dark"> 覆盖。主题由 src/stores/theme.ts 在挂载前同步写入，
+   避免首屏闪烁。 */
+:root {
+  color: var(--text-primary);
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --canvas: #f8f9fb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  /* 与 --surface-raised 同色相的透明端点，用于输入区等渐隐遮罩。 */
+  --surface-raised-fade: rgb(255 255 255 / 0%);
+  --surface-inset: #f4f5f8;
+  --surface-hover: #f2f3f7;
+  --surface-selected: #e9e7ff;
+  --surface-glass: rgb(255 255 255 / 85%);
+  --rail: #f4f5f8;
+  --rail-hover: #eceef4;
+  --rail-active: #e9e7ff;
+  --rail-text: #1a1d24;
+  --rail-muted: #66718a;
+  --text-primary: #1a1d24;
+  --text-secondary: #5a6474;
+  --text-tertiary: #8a94a6;
+  --line: #e5e8ee;
+  --line-strong: #ccd2dc;
+  --accent: #7c6bff;
+  --accent-solid: #6b5bf0;
+  --accent-strong: #5a4cf0;
+  --accent-soft: rgb(124 107 255 / 12%);
+  --accent-border: rgb(124 107 255 / 35%);
+  --accent-focus: rgb(124 107 255 / 28%);
+  --accent-gradient: linear-gradient(135deg, #8b7cff 0%, #6b5bf0 55%, #5a4cf0 100%);
+  --focus-ring: rgb(124 107 255 / 45%);
+  --glow-accent: 0 0 18px rgb(124 107 255 / 24%);
+  --success: #2fa877;
+  --danger: #d64545;
+  --danger-soft: rgb(214 69 69 / 9%);
+  --warning: #c9971e;
+  --status-neutral-bg: #f2f3f7;
+  --status-neutral-border: #dfe3ea;
+  --status-neutral-text: #5a6474;
+  --status-waiting-bg: rgb(201 151 30 / 12%);
+  --status-waiting-border: rgb(201 151 30 / 40%);
+  --status-waiting-text: #a86f00;
+  --status-running-bg: rgb(59 111 224 / 10%);
+  --status-running-border: rgb(59 111 224 / 35%);
+  --status-running-text: #2f63d0;
+  --status-success-bg: rgb(47 168 119 / 10%);
+  --status-success-border: rgb(47 168 119 / 32%);
+  --status-success-text: #1d8a5f;
+  --status-danger-bg: rgb(214 69 69 / 9%);
+  --status-danger-border: rgb(214 69 69 / 32%);
+  --status-danger-text: #c23a3a;
+  --shadow-float: 0 4px 16px rgb(20 24 40 / 7%);
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, "JetBrains Mono", "SFMono-Regular", monospace;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-pill: 999px;
+  --transition-fast: 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 深色主题：夜晚值班配色。 */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0b0e14;
+  --surface: #10141d;
+  --surface-raised: #131722;
+  --surface-raised-fade: rgb(19 23 34 / 0%);
+  --surface-inset: #0e121b;
+  --surface-hover: #1b2130;
+  --surface-selected: #1c1936;
+  --surface-glass: rgb(16 20 29 / 82%);
+  --rail: #0a0d13;
+  --rail-hover: #161c28;
+  --rail-active: #1c2534;
+  --rail-text: #e8eaf0;
+  --rail-muted: #8b93a5;
+  --text-primary: #e8eaf0;
+  --text-secondary: #a8b0bf;
+  --text-tertiary: #6f7889;
+  --line: #222836;
+  --line-strong: #2e3646;
+  --accent: #7c6bff;
+  --accent-solid: #6b5bf0;
+  --accent-strong: #a89cff;
+  --accent-soft: rgb(124 107 255 / 16%);
+  --accent-border: rgb(124 107 255 / 45%);
+  --accent-focus: rgb(124 107 255 / 40%);
+  --accent-gradient: linear-gradient(135deg, #a89cff 0%, #7c6bff 55%, #6b5bf0 100%);
+  --focus-ring: rgb(150 178 255 / 50%);
+  --glow-accent: 0 0 18px rgb(124 107 255 / 30%);
+  --success: #4adfae;
+  --danger: #ff7b72;
+  --danger-soft: rgb(240 84 76 / 12%);
+  --warning: #e5b45c;
+  --status-neutral-bg: #1a1f2b;
+  --status-neutral-border: #2c3342;
+  --status-neutral-text: #a8b0bf;
+  --status-waiting-bg: rgb(154 112 20 / 14%);
+  --status-waiting-border: rgb(154 112 20 / 45%);
+  --status-waiting-text: #e5b45c;
+  --status-running-bg: rgb(64 132 244 / 12%);
+  --status-running-border: rgb(64 132 244 / 40%);
+  --status-running-text: #6ea8ff;
+  --status-success-bg: rgb(74 223 174 / 10%);
+  --status-success-border: rgb(74 223 174 / 35%);
+  --status-success-text: #4adfae;
+  --status-danger-bg: rgb(240 84 76 / 12%);
+  --status-danger-border: rgb(240 84 76 / 40%);
+  --status-danger-text: #ff7b72;
+  --shadow-float: 0 12px 32px rgb(0 0 0 / 55%);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--canvas); }
+/* 高密度工作台排版：基准字号 13px（接近 Langfuse traces 页的紧凑信息密度），
+   作用于未显式声明字号的文本；组件内 rem 尺寸已同步下调。 */
+body { background: var(--canvas); color: var(--text-primary); font-size: 13px; letter-spacing: -0.003em; margin: 0; min-width: 320px; min-height: 100vh; }
+button, input, select, textarea { font: inherit; letter-spacing: inherit; }
+/* 标题收紧字距，贴近 Langfuse 的紧凑排版。 */
+h1, h2, h3, h4 { letter-spacing: -0.012em; }
+button { background: transparent; border: 0; color: var(--text-primary); cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+a { color: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+::selection { background: rgb(124 107 255 / 28%); color: var(--text-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
+
+/* shadcn-vue 主题映射：全部引用上方随主题切换的变量，因此自动适配浅色/深色。 */
+:root {
+  --background: var(--canvas);
+  --foreground: var(--text-primary);
+  --card: var(--surface);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--surface-hover);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--surface-inset);
+  --muted-foreground: var(--text-secondary);
+  --destructive: var(--danger);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--accent-focus);
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  /* shadcn 语义中的 accent 是悬停底色；映射到现有 --surface-hover，
+     避免与品牌紫罗兰 --accent 撞名，两套语义互不干扰。 */
+  --color-accent: var(--surface-hover);
+  --color-accent-foreground: var(--text-primary);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}

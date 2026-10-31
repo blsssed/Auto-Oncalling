@@ -1,0 +1,36 @@
+{
+  "llm": {
+    "apiKey": "",
+    "chatModel": "qwen3.7-max",
+    "embeddingModel": "text-embedding-v4",
+    "embedding": {
+      "apiKey": "",
+      "baseUrl": "",
+      "model": "",
+      "dimensions": null
+    },
+    "rerank": {
+      "apiKey": "",
+      "baseUrl": "",
+      "model": ""
+    },
+    "modelCapabilities": {
+      "qwen3.7-max": {
+        "contextWindowTokens": 1000000
+      }
+    }
+  },
+  "clsMcpServer": {
+    "secretId": "",
+    "secretKey": ""
+  },
+  "clsLogUpload": {
+    "region": "ap-guangzhou",
+    "logsetId": "",
+    "topicId": ""
+  },
+  "langfuse": {
+    "publicKey": "",
+    "secretKey": ""
+  }
+}

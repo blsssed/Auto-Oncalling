@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Local-first metrics source. Prometheus scrapes itself so a fresh checkout always has
+# real series (up, prometheus_*, go_*) for the AIOps promql_query tool. Add your own
+# scrape targets (node_exporter, app /metrics, ...) here as you adopt them.
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
